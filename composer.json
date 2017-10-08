@@ -1,0 +1,31 @@
+{
+    "name": "gr-group/grsupport",
+    "description": "GR Support",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.*",
+        "consoletvs/profanity": "^1.0"
+    },
+    "author": {
+        "name": "GR Inc ",
+        "email": "contato@geraldorocha.com"
+    },
+    "autoload": {
+        "psr-4": {
+            "GRGroup\\GRSupport\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GRGroup\\GRSupport\\GRSupportServiceProvider"
+            ],
+            "aliases": {
+                "GRSupport": "GRGroup\\GRSupport\\Facades\\Support"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
