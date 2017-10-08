@@ -14,6 +14,10 @@ class GRSupportServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+        Blade::directive('profanity', function ($str) {
+            return "<?php profanityBlocker({$str}) ?>";
+        });
+
         $this->publishes([
             __DIR__.'/Config/grsupport.php' => config_path('grsupport.php'),
         ], 'grsupport_config');
