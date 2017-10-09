@@ -26,6 +26,13 @@ class GRSupportServiceProvider extends ServiceProvider
         Blade::directive('numbers', function ($str) {
             return "<?php echo(only_numbers({$str})) ?>";
         });
+
+        Blade::directive('agent', function ($expression) {
+            return "<?php if(agent({$expression})): ?>";
+        });
+        Blade::directive('endagent', function () {
+            return '<?php endif; ?>';
+        });
     }
 
     /**

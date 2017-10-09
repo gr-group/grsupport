@@ -7,7 +7,8 @@
         "php": ">=5.6",
         "illuminate/support": "5.*",
         "consoletvs/profanity": "^1.0",
-        "nahid/linkify": "^1.0"
+        "nahid/linkify": "^1.0",
+        "jenssegers/agent": "^2.5"
     },
     "author": {
         "name": "GR Inc ",

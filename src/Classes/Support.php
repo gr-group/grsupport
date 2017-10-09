@@ -3,10 +3,25 @@
 namespace GRGroup\GRSupport\Classes;
 
 use ConsoleTVs\Profanity\Builder as ProfanityBuilder;
+use Jenssegers\Agent\Agent;
 use Nahid\Linkify\Linkify;
 
 class Support
 {
+	/**
+	 * Start Jenssegers Agent
+	 * @return Jenssegers\Agent\Agent
+	 */
+	public function agent($arg = null)
+	{
+		$agent = new Agent();
+
+		if($arg){
+			return $agent->is($arg);
+		}
+		
+		return new Agent();
+	}
     /**
 	 * Start Profanity
 	 * @return ConsoleTVs\Profanity\Builder
@@ -234,4 +249,5 @@ class Support
 
         return $linkify->process($str);
     }
+
 }

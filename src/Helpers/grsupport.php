@@ -105,3 +105,10 @@ if (!function_exists('url_parser')) {
         return Support::urlParser($str, $rule);
     }
 }
+
+if (!function_exists('agent')) {
+    function agent($arg = null)
+    {
+        return Support::agent($arg);
+    }
+}
