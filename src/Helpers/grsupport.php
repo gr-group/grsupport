@@ -99,3 +99,10 @@ if (!function_exists('limit_lines')) {
         return Support::limtitLines($str, $lines);
     }
 }
+
+if (!function_exists('url_parser')) {
+    function url_parser($str, $rule)
+    {
+        return Support::urlParser($str, $rule);
+    }
+}

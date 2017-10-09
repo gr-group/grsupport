@@ -19,9 +19,13 @@ class GRSupportServiceProvider extends ServiceProvider
             return "<?php echo(profanity_blocker({$str})) ?>";
         });
 
-        $this->publishes([
-            __DIR__.'/Config/grsupport.php' => config_path('grsupport.php'),
-        ], 'grsupport_config');
+        Blade::directive('alphanumeric', function ($str) {
+            return "<?php echo(str_alphanumeric({$str})) ?>";
+        });
+
+        Blade::directive('numbers', function ($str) {
+            return "<?php echo(only_numbers({$str})) ?>";
+        });
     }
 
     /**
@@ -31,10 +35,6 @@ class GRSupportServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/Config/grsupport.php', 'grsupport'
-        );
-
         if (file_exists(__DIR__.'/Helpers/grsupport.php')) {
             require __DIR__.'/Helpers/grsupport.php';
         }

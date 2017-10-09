@@ -3,6 +3,7 @@
 namespace GRGroup\GRSupport\Classes;
 
 use ConsoleTVs\Profanity\Builder as ProfanityBuilder;
+use Nahid\Linkify\Linkify;
 
 class Support
 {
@@ -217,4 +218,20 @@ class Support
         return preg_replace("/[\r\n]+/", "$line", $str);
     }
 
+    /**
+     * Parse URLs from string
+     * @param  string $str
+     * @param  string $rule substitution rule, for example: <a href="[url]">[caption]</a>
+     * @return string
+     */
+    public function urlParser($str, $rule)
+    {
+    	$linkify = new Linkify(['callback' => function ($url, $caption, $isEmail) use ($rule) {
+            $rule = str_replace('[url]', $url, $rule);
+            $rule = str_replace('[caption]', $caption, $rule);
+            return $rule;
+        }]);
+
+        return $linkify->process($str);
+    }
 }
