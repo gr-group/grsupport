@@ -22,7 +22,7 @@ class Support
         
         return new Agent();
     }
-    
+
     /**
      * Start Profanity
      * @return ConsoleTVs\Profanity\Builder
@@ -249,5 +249,25 @@ class Support
         }]);
 
         return $linkify->process($str);
+    }
+
+    /**
+     * Clean html strings in request using pack Mews/Purifier with clean helper
+     * @param  array $request
+     * @return void
+     */
+    public function cleanHtmlStringsFromRequest($request)
+    {
+    	$r = [];
+
+    	foreach($request->all() as $key => $value){
+            if(is_string($value)){
+                $r[$key] = clean($value);
+            }else{
+                $r[$key] = $value;
+            }
+
+            $request->request->replace($r);
+        }
     }
 }

@@ -15,8 +15,17 @@ If you are in L5.5+ you don't need the
 		...
 		GRGroup\GRSupport\GRSupportServiceProvider::class,
    	]
+   	
+## The middleware of html tags cleaning in the strings of a global request
 
-# Methods, Helpers and Blade Directives
+In app/Http/Kernel.php
+
+	protected $middleware = [
+   		...
+   		\GRGroup\GRSupport\Middleware\CleanHtmlStrings::class,
+	];
+
+## Methods, Helpers and Blade Directives
 
 [Methods](https://github.com/gr-group/grsupport/blob/master/src/Classes/Support.php#L9)
 
