@@ -8,114 +8,115 @@ use Nahid\Linkify\Linkify;
 
 class Support
 {
-	/**
-	 * Start Jenssegers Agent
-	 * @return Jenssegers\Agent\Agent
-	 */
-	public function agent($arg = null)
-	{
-		$agent = new Agent();
-
-		if($arg){
-			return $agent->is($arg);
-		}
-		
-		return new Agent();
-	}
     /**
-	 * Start Profanity
-	 * @return ConsoleTVs\Profanity\Builder
-	 */
-	public function profanity()
-	{
-		return new ProfanityBuilder;
-	}
+     * Start Jenssegers Agent
+     * @return Jenssegers\Agent\Agent
+     */
+    public function agent($arg = null)
+    {
+        $agent = new Agent();
 
-	/**
-	 * Profanity Blocker
-	 * @param 	string 	$str
-	 * @return string
-	 */
-	public function profanityBlocker($str)
-	{
-		return ProfanityBuilder::blocker($str)->filter();
-	}
+        if ($arg) {
+            return $agent->is($arg);
+        }
+        
+        return new Agent();
+    }
+    
+    /**
+     * Start Profanity
+     * @return ConsoleTVs\Profanity\Builder
+     */
+    public function profanity()
+    {
+        return new ProfanityBuilder;
+    }
 
-	/**
-	 * Get auth request by guard
-	 * @param 	string 	$guard 	Web / Api
-	 * @return Illuminate\Database\Eloquent\Model
-	 */
-	public function authRequest($guard = null)
-	{
-		return is_null($guard) ? request()->user() ?? request()->user('api') : request()->user($guard);
-	}
+    /**
+     * Profanity Blocker
+     * @param 	string 	$str
+     * @return string
+     */
+    public function profanityBlocker($str)
+    {
+        return ProfanityBuilder::blocker($str)->filter();
+    }
 
-	/**
-	 * Verify string is html
-	 * @param  string $str
-	 * @return boolean
-	 */
-	public function strHtml($str)
-	{
-		if ($str != strip_tags($str)) {
+    /**
+     * Get auth request by guard
+     * @param 	string 	$guard 	Web / Api
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function authRequest($guard = null)
+    {
+        return is_null($guard) ? request()->user() ?? request()->user('api') : request()->user($guard);
+    }
+
+    /**
+     * Verify string is html
+     * @param  string $str
+     * @return boolean
+     */
+    public function strHtml($str)
+    {
+        if ($str != strip_tags($str)) {
             return true;
         }
 
         return false;
-	}
+    }
 
-	/**
-	 * Verify string is json
-	 * @param  string $str
-	 * @return boolean
-	 */
-	public function strJson($str)
-	{
-		json_decode($str);
+    /**
+     * Verify string is json
+     * @param  string $str
+     * @return boolean
+     */
+    public function strJson($str)
+    {
+        json_decode($str);
         return (json_last_error() == JSON_ERROR_NONE);
-	}
+    }
 
-	/**
-	 * Only alpha numeric
-	 * @param  string $str
-	 * @return string
-	 */
-	public function strAlphaNumeric($str)
-	{
-		return preg_replace("/[^a-zA-Z0-9]+/", "", $str);
-	}
+    /**
+     * Only alpha numeric
+     * @param  string $str
+     * @return string
+     */
+    public function strAlphaNumeric($str)
+    {
+        return preg_replace("/[^a-zA-Z0-9]+/", "", $str);
+    }
 
-	/**
-	 * Only numbers in string
-	 * @param  string $str
-	 * @return string
-	 */
-	public function onlyNumbers($str)
-	{
-		return preg_replace('/[^0-9]+/', '', $str);
-	}
+    /**
+     * Only numbers in string
+     * @param  string $str
+     * @return string
+     */
+    public function onlyNumbers($str)
+    {
+        return preg_replace('/[^0-9]+/', '', $str);
+    }
 
-	/**
-	 * Only numbers and points
-	 * @param  string $str
-	 * @return string
-	 */
-	public function numbersPoints($str)
-	{
-		$str = preg_replace("/[^ \w]+/", ".", $str);
+    /**
+     * Only numbers and points
+     * @param  string $str
+     * @return string
+     */
+    public function numbersPoints($str)
+    {
+        $str = preg_replace("/[^ \w]+/", ".", $str);
         $str = preg_replace('/[a-zA-Z_ \/+]/', '0', $str);
         return $str;
-	}
+    }
 
-	/**
-	 * Generate random numbers
-	 * @param  integer $length
-	 * @return string
-	 */
-	public function randomNumbers($length = 6)
-	{
-		$nums = '0123456789';
+    /**
+     * Generate random numbers
+     * @param  integer $length
+     * @return string
+     */
+    public function randomNumbers($length = 6)
+    {
+        $nums = '0123456789';
 
         $out = $nums[mt_rand(1, strlen($nums)-1)];
 
@@ -124,46 +125,46 @@ class Support
         }
 
         return $out;
-	}
+    }
 
-	/**
-	 * Replace tags in string using {tag}
-	 * @param  string $str
-	 * @param  array $tags
-	 * @return string
-	 */
-	public function replaceTags($str, $tags)
-	{
-		return preg_replace_callback(
-	        '/\\{([^{}]+)\}/',
-	        function ($matches) use ($tags) {
-	            return array_key_exists($matches[1], $tags)
-	            ? $tags[$matches[1]]
-	            : '';
-	        },
-	        $str
-	    );
-	}
+    /**
+     * Replace tags in string using {tag}
+     * @param  string $str
+     * @param  array $tags
+     * @return string
+     */
+    public function replaceTags($str, $tags)
+    {
+        return preg_replace_callback(
+            '/\\{([^{}]+)\}/',
+            function ($matches) use ($tags) {
+                return array_key_exists($matches[1], $tags)
+                ? $tags[$matches[1]]
+                : '';
+            },
+            $str
+        );
+    }
 
-	/**
-	 * Search for a content within a file
-	 * @param  string $file
-	 * @param  string $subject
-	 * @return boolean
-	 */
-	public function fileSearch($file, $subject)
-	{
-		return str_contains(file_get_contents(str_contains($file, '/') ? $file : $file), $subject);
-	}
+    /**
+     * Search for a content within a file
+     * @param  string $file
+     * @param  string $subject
+     * @return boolean
+     */
+    public function fileSearch($file, $subject)
+    {
+        return str_contains(file_get_contents(str_contains($file, '/') ? $file : $file), $subject);
+    }
 
-	/**
-	 * Edit part of the contents of a file
-	 * @param  string $file
-	 * @param  string $replace
-	 * @param  string $subject
-	 * @return void
-	 */
-	public function fileEdit($file, $replace, $subject)
+    /**
+     * Edit part of the contents of a file
+     * @param  string $file
+     * @param  string $replace
+     * @param  string $subject
+     * @return void
+     */
+    public function fileEdit($file, $replace, $subject)
     {
         file_put_contents($file, str_replace(
             "$replace",
@@ -227,7 +228,7 @@ class Support
     public function limtitLines($str, $lines = 1)
     {
         $line = "\n";
-        for($i=2; $i<=$lines; $i++){
+        for ($i=2; $i<=$lines; $i++) {
             $line .= "\n";
         }
         return preg_replace("/[\r\n]+/", "$line", $str);
@@ -241,7 +242,7 @@ class Support
      */
     public function urlParser($str, $rule)
     {
-    	$linkify = new Linkify(['callback' => function ($url, $caption, $isEmail) use ($rule) {
+        $linkify = new Linkify(['callback' => function ($url, $caption, $isEmail) use ($rule) {
             $rule = str_replace('[url]', $url, $rule);
             $rule = str_replace('[caption]', $caption, $rule);
             return $rule;
@@ -249,5 +250,4 @@ class Support
 
         return $linkify->process($str);
     }
-
 }
