@@ -1,5 +1,4 @@
 <?php
-
 use GRGroup\GRSupport\Facades\Support;
 
 if (!function_exists('profanity')) {
