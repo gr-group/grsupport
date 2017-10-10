@@ -15,10 +15,10 @@ Register the service provider in config/app.php file.
 If you are in L5.5+ you don't need the 
 
 ```php
-	'providers' => [
-		...
-		GRGroup\GRSupport\GRSupportServiceProvider::class,
-   	]
+'providers' => [
+	...
+	GRGroup\GRSupport\GRSupportServiceProvider::class,
+]
 ```
    	
 ## The middleware of html tags cleaning in the strings of a global request
@@ -28,10 +28,10 @@ This middleware uses the [Purifier](https://github.com/mewebstudio/Purifier) pac
 Now, in app/Http/Kernel.php file
 
 ```php
-	protected $middleware = [
-   		...
-   		\GRGroup\GRSupport\Middleware\CleanHtmlStrings::class,
-	];
+protected $middleware = [
+	...
+	\GRGroup\GRSupport\Middleware\CleanHtmlStrings::class,
+];
 ```
 
 ## Methods, Helpers and Blade Directives

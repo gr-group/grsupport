@@ -272,7 +272,7 @@ class Support
     }
 
     /**
-     * Phone format by Country
+     * Phone format by Country with giggsey/libphonenumber-for-php pack
      * @param  string $phone
      * @param  string $country Code
      * @param  string $format
@@ -299,7 +299,7 @@ class Support
     }
 
     /**
-     * Phone format by Locale
+     * Phone format by Locale with giggsey/Locale and giggsey/libphonenumber-for-php pack
      * @param  string $phone
      * @param  string $locale
      * @param  string $format
@@ -307,15 +307,15 @@ class Support
      */
     public function phoneFormatByLocale($phone, $locale = 'pt-BR', $format = 'n')
     {
-    	if(strlen($locale) == 2){
-    		if($locale == 'en'){
-    			$locale = 'en-GB';
-    		}else{
-    			$locale = $locale.'-'.strtoupper($locale);
-    		}
-    	}
+        if (strlen($locale) == 2) {
+            if ($locale == 'en') {
+                $locale = 'en-GB';
+            } else {
+                $locale = $locale.'-'.strtoupper($locale);
+            }
+        }
 
-    	$region = \Giggsey\Locale\Locale::getRegion($locale);
+        $region = \Giggsey\Locale\Locale::getRegion($locale);
 
         return $this->phoneFormatByCountry($phone, $region, $format);
     }
