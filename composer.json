@@ -9,7 +9,8 @@
         "consoletvs/profanity": "^1.0",
         "nahid/linkify": "^1.0",
         "jenssegers/agent": "^2.5",
-        "mews/purifier": "^2.0"
+        "mews/purifier": "^2.0",
+        "giggsey/libphonenumber-for-php": "^8.8"
     },
     "author": {
         "name": "GR Inc ",

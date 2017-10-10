@@ -6,24 +6,33 @@ Support package used in projects in Laravel of technology companies of GR Group
 
 Execute the following composer command.
 
-    composer require gr-group/grsupport
+```
+composer require gr-group/grsupport
+```
 
-Register the service provider in app.php.  
+
+Register the service provider in config/app.php file.  
 If you are in L5.5+ you don't need the 
 
+```php
 	'providers' => [
 		...
 		GRGroup\GRSupport\GRSupportServiceProvider::class,
    	]
+```
    	
 ## The middleware of html tags cleaning in the strings of a global request
 
-In app/Http/Kernel.php
+This middleware uses the [Purifier](https://github.com/mewebstudio/Purifier) package.
 
+Now, in app/Http/Kernel.php file
+
+```php
 	protected $middleware = [
    		...
    		\GRGroup\GRSupport\Middleware\CleanHtmlStrings::class,
 	];
+```
 
 ## Methods, Helpers and Blade Directives
 

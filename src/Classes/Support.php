@@ -258,16 +258,65 @@ class Support
      */
     public function cleanHtmlStringsFromRequest($request)
     {
-    	$r = [];
+        $r = [];
 
-    	foreach($request->all() as $key => $value){
-            if(is_string($value)){
+        foreach ($request->all() as $key => $value) {
+            if (is_string($value)) {
                 $r[$key] = clean($value);
-            }else{
+            } else {
                 $r[$key] = $value;
             }
 
             $request->request->replace($r);
         }
+    }
+
+    /**
+     * Phone format by Country
+     * @param  string $phone
+     * @param  string $country Code
+     * @param  string $format
+     * @return string
+     */
+    public function phoneFormatByCountry($phone, $country = 'BR', $format = 'n')
+    {
+        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        try {
+            $phoneParse = $phoneUtil->parse($phone, $country);
+        } catch (\libphonenumber\NumberParseException $e) {
+            return null;
+        }
+
+        if ($format == 'n') {
+            $method = \libphonenumber\PhoneNumberFormat::NATIONAL;
+        } elseif ($format == 'i') {
+            $method = \libphonenumber\PhoneNumberFormat::INTERNATIONAL;
+        } else {
+            $method = \libphonenumber\PhoneNumberFormat::E164;
+        }
+
+        return $phoneUtil->format($phoneParse, $method);
+    }
+
+    /**
+     * Phone format by Locale
+     * @param  string $phone
+     * @param  string $locale
+     * @param  string $format
+     * @return string
+     */
+    public function phoneFormatByLocale($phone, $locale = 'pt-BR', $format = 'n')
+    {
+    	if(strlen($locale) == 2){
+    		if($locale == 'en'){
+    			$locale = 'en-GB';
+    		}else{
+    			$locale = $locale.'-'.strtoupper($locale);
+    		}
+    	}
+
+    	$region = \Giggsey\Locale\Locale::getRegion($locale);
+
+        return $this->phoneFormatByCountry($phone, $region, $format);
     }
 }
