@@ -24,7 +24,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "GRGroup\\GRSupport\\GRSupportServiceProvider"
+                "GRGroup\\GRSupport\\GRSupportServiceProvider",
+                "GRGroup\\GRSupport\\GRSupportBladeDirectives"
             ],
             "aliases": {
                 "GRSupport": "GRGroup\\GRSupport\\Facades\\Support"

@@ -302,7 +302,7 @@ class Support
                 }
             }
 
-            $countries = collect($countries)->filter(function ($item) use ($by, $value) {
+            $countries = (object) collect($countries)->filter(function ($item) use ($by, $value) {
                 return strtolower($item[$by]) == strtolower($value);
             })->values()->first();
         }
@@ -339,7 +339,7 @@ class Support
      */
     public function localeByCountryName($country)
     {
-        return $this->countries('name', $country)['locale'];
+        return $this->countries('name', $country)->locale;
     }
 
     /**
