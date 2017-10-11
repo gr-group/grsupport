@@ -276,7 +276,7 @@ class Support
 
     /**
      * Countries search and list
-     * @param  string $by    Column to search
+     * @param  string $by    Column to search (locale, name, shortname, slug)
      * @param  string $value Value to search
      * @return array
      */
@@ -312,7 +312,7 @@ class Support
 
     /**
      * Get Country code by Locale
-     * @param  string $locale
+     * @param  string $locale pt-BR, en-US, es-ES, ...
      * @return string
      */
     public function countryCodeByLocale($locale)
@@ -334,7 +334,7 @@ class Support
 
     /**
      * Get locale by country name using countries method
-     * @param  string $country Country Name
+     * @param  string $country Country Name (Brazil, United States, ...)
      * @return string
      */
     public function localeByCountryName($country)

@@ -21,7 +21,7 @@ If you are in L5.5+ you don't need the
 ]
 ```
    	
-## The middleware of html tags cleaning in the strings of a global request
+## How to use middleware for clean html strings from global request
 
 This middleware uses the [Purifier](https://github.com/mewebstudio/Purifier) package.
 
