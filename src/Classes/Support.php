@@ -3,8 +3,11 @@
 namespace GRGroup\GRSupport\Classes;
 
 use ConsoleTVs\Profanity\Builder as ProfanityBuilder;
+use Giggsey\Locale\Locale;
 use Jenssegers\Agent\Agent;
 use Nahid\Linkify\Linkify;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 class Support
 {
@@ -272,6 +275,28 @@ class Support
     }
 
     /**
+     * Get Country code by Locale
+     * @param  string $locale
+     * @return string
+     */
+    public function countryCodeByLocale($locale)
+    {
+        if (str_contains($locale, ' ')) {
+            $locale = str_replace(' ', '-', $locale);
+        }
+
+        if (strlen($locale) == 2) {
+            if ($locale == 'en') {
+                $locale = 'en-US';
+            } else {
+                $locale = $locale.'-'.strtoupper($locale);
+            }
+        }
+
+        return Locale::getRegion($locale);
+    }
+
+    /**
      * Phone format by Country with giggsey/libphonenumber-for-php pack
      * @param  string $phone
      * @param  string $country Code
@@ -280,7 +305,7 @@ class Support
      */
     public function phoneFormatByCountry($phone, $country = 'BR', $format = 'n')
     {
-        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        $phoneUtil = PhoneNumberUtil::getInstance();
         try {
             $phoneParse = $phoneUtil->parse($phone, $country);
         } catch (\libphonenumber\NumberParseException $e) {
@@ -288,11 +313,11 @@ class Support
         }
 
         if ($format == 'n') {
-            $method = \libphonenumber\PhoneNumberFormat::NATIONAL;
+            $method = PhoneNumberFormat::NATIONAL;
         } elseif ($format == 'i') {
-            $method = \libphonenumber\PhoneNumberFormat::INTERNATIONAL;
+            $method = PhoneNumberFormat::INTERNATIONAL;
         } else {
-            $method = \libphonenumber\PhoneNumberFormat::E164;
+            $method = PhoneNumberFormat::E164;
         }
 
         return $phoneUtil->format($phoneParse, $method);
@@ -307,16 +332,7 @@ class Support
      */
     public function phoneFormatByLocale($phone, $locale = 'pt-BR', $format = 'n')
     {
-        if (strlen($locale) == 2) {
-            if ($locale == 'en') {
-                $locale = 'en-GB';
-            } else {
-                $locale = $locale.'-'.strtoupper($locale);
-            }
-        }
-
-        $region = \Giggsey\Locale\Locale::getRegion($locale);
-
-        return $this->phoneFormatByCountry($phone, $region, $format);
+        $countryCode = $this->countryCodeByLocale($locale);
+        return $this->phoneFormatByCountry($phone, $countryCode, $format);
     }
 }

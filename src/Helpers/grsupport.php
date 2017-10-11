@@ -112,3 +112,10 @@ if (!function_exists('agent')) {
         return Support::agent($arg);
     }
 }
+
+if (!function_exists('country_code_locale')) {
+    function country_code_locale($locale)
+    {
+        return Support::countryCodeByLocale($locale);
+    }
+}
