@@ -275,6 +275,42 @@ class Support
     }
 
     /**
+     * Countries search and list
+     * @param  string $by    Column to search
+     * @param  string $value Value to search
+     * @return array
+     */
+    public function countries($by = null, $value = null)
+    {
+        $countries = json_decode(file_get_contents(__DIR__ . '/../../data/countries.json'), true);
+
+        if (is_null($by) && is_null($value)) {
+            $countries = collect($countries)->values()->all();
+        } else {
+            if ($by == 'locale') {
+                $value = str_replace(' ', '_', $value);
+                $value = str_replace('-', '_', $value);
+            }
+
+            if ($by == 'locale' && strlen($value) == 2) {
+                if ($value == 'en') {
+                    $value = 'en_US';
+                } elseif ($value == 'br') {
+                    $value = 'pt_BR';
+                } else {
+                    $value = $value.'_'.strtoupper($value);
+                }
+            }
+
+            $countries = collect($countries)->filter(function ($item) use ($by, $value) {
+                return strtolower($item[$by]) == strtolower($value);
+            })->values()->first();
+        }
+
+        return $countries;
+    }
+
+    /**
      * Get Country code by Locale
      * @param  string $locale
      * @return string
@@ -294,6 +330,16 @@ class Support
         }
 
         return Locale::getRegion($locale);
+    }
+
+    /**
+     * Get locale by country name using countries method
+     * @param  string $country Country Name
+     * @return string
+     */
+    public function localeByCountryName($country)
+    {
+        return $this->countries('name', $country)['locale'];
     }
 
     /**
