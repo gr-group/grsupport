@@ -381,4 +381,17 @@ class Support
         $countryCode = $this->countryCodeByLocale($locale);
         return $this->phoneFormatByCountry($phone, $countryCode, $format);
     }
+
+    /**
+     * Extract hashtags from strings
+     * @param  string $str
+     * @param  string $type arr || str
+     * @return mixed
+     */
+    public function extractHashtags($str, $type = 'arr')
+    {
+    	preg_match_all("/(#\w+)/", $str, $matches);
+    	$matches = $type == 'arr' ? $matches[0] : implode(', ', $matches[0]);
+    	return $matches;
+    }
 }
