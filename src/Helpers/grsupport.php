@@ -119,3 +119,10 @@ if (!function_exists('country_code_locale')) {
         return Support::countryCodeByLocale($locale);
     }
 }
+
+if (!function_exists('extract_hashtags')) {
+    function extract_hashtags($str, $type = 'arr')
+    {
+        return Support::extractHashtags($str, $type);
+    }
+}
