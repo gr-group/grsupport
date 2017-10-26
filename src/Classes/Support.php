@@ -394,4 +394,27 @@ class Support
     	$matches = $type == 'arr' ? $matches[0] : implode(', ', $matches[0]);
     	return $matches;
     }
+
+    /**
+     * Format numbers in instagram followers style
+     * @param  integer $number
+     * @return string
+     */
+    public function summaryNumbers($number)
+    {
+        $x = round($number);
+        $x_number_format = number_format($x);
+        $x_array = explode(',', $x_number_format);
+        $x_parts = array('k', 'm', 'b', 't');
+        $x_count_parts = count($x_array) - 1;
+        $x_display = $x;
+
+        if(!isset($x_array[1])){
+            return $x_array[0];
+        }
+
+        $x_display = $x_array[0] . ((int) $x_array[1][0] !== 0 ? '.' . $x_array[1][0] : '');
+        $x_display .= $x_parts[$x_count_parts - 1];
+        return $x_display;
+    }
 }

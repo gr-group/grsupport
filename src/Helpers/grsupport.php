@@ -126,3 +126,10 @@ if (!function_exists('extract_hashtags')) {
         return Support::extractHashtags($str, $type);
     }
 }
+
+if (!function_exists('summary_numbers')) {
+    function summary_numbers($number)
+    {
+        return Support::summaryNumbers($number);
+    }
+}
