@@ -376,10 +376,17 @@ class Support
      * @param  string $format
      * @return string
      */
-    public function phoneFormatByLocale($phone, $locale = 'pt-BR', $format = 'n')
+    public function phoneFormatByLocale($phone, $locale = 'pt-BR', $format = 'n', $plus = true)
     {
         $countryCode = $this->countryCodeByLocale($locale);
-        return $this->phoneFormatByCountry($phone, $countryCode, $format);
+
+        $format = $this->phoneFormatByCountry($phone, $countryCode, $format);
+
+        if(!$plus){
+            $format = str_replace('+', '', $format);
+        }
+
+        return $format;
     }
 
     /**
