@@ -255,6 +255,29 @@ class Support
     }
 
     /**
+     * Parse multiple URLs from string separated by commas or semicolons
+     * @param  string  $str
+     * @param  string  $rule substitution rule, for example: <a href="[url]">[caption]</a>
+     * @param  string  $html if null returns array if filled with an html tag, returns a string separated by the tag
+     * @return mixed
+     */
+    public function urlParserMultiple($str, $rule, $html = null)
+    {
+        $explode = explode(';', $str);
+        $url = collect($explode)->map(function ($item) use ($rule) {
+            return $this->urlParser($item, $rule);
+        });
+
+        if (is_null($html)) {
+            $url = $url->all();
+        } else {
+            $url = $url->implode($html);
+        }
+
+        return $url;
+    }
+
+    /**
      * Clean html strings in request using pack Mews/Purifier with clean helper
      * @param  array $request
      * @return void
@@ -382,7 +405,7 @@ class Support
 
         $format = $this->phoneFormatByCountry($phone, $countryCode, $format);
 
-        if(!$plus){
+        if (!$plus) {
             $format = str_replace('+', '', $format);
         }
 
@@ -397,9 +420,9 @@ class Support
      */
     public function extractHashtags($str, $type = 'arr')
     {
-    	preg_match_all("/(#\w+)/", $str, $matches);
-    	$matches = $type == 'arr' ? $matches[0] : implode(', ', $matches[0]);
-    	return $matches;
+        preg_match_all("/(#\w+)/", $str, $matches);
+        $matches = $type == 'arr' ? $matches[0] : implode(', ', $matches[0]);
+        return $matches;
     }
 
     /**
@@ -412,11 +435,11 @@ class Support
         $x = round($number);
         $x_number_format = number_format($x);
         $x_array = explode(',', $x_number_format);
-        $x_parts = array('k', 'm', 'b', 't');
+        $x_parts = ['k', 'm', 'b', 't'];
         $x_count_parts = count($x_array) - 1;
         $x_display = $x;
 
-        if(!isset($x_array[1])){
+        if (!isset($x_array[1])) {
             return $x_array[0];
         }
 

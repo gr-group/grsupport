@@ -106,6 +106,13 @@ if (!function_exists('url_parser')) {
     }
 }
 
+if (!function_exists('url_parser_multiple')) {
+    function url_parser_multiple($str, $rule, $html = null)
+    {
+        return Support::urlParserMultiple($str, $rule, $html);
+    }
+}
+
 if (!function_exists('agent')) {
     function agent($arg = null)
     {
