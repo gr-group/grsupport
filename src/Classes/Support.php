@@ -450,11 +450,11 @@ class Support
     }
 
     /**
-     * [urlWithParams description]
-     * @param  [type] $path   [description]
-     * @param  array  $qs     [description]
-     * @param  [type] $secure [description]
-     * @return [type]         [description]
+     * Laravel route with query strings
+     * @param  string $path
+     * @param  array  $qs
+     * @param  boolean $secure
+     * @return string
      */
     public function urlWithParams($path = null, $qs = [], $secure = null)
     {
