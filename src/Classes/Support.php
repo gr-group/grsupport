@@ -4,6 +4,7 @@ namespace GRGroup\GRSupport\Classes;
 
 use ConsoleTVs\Profanity\Builder as ProfanityBuilder;
 use Giggsey\Locale\Locale;
+use Illuminate\Filesystem\Filesystem;
 use Jenssegers\Agent\Agent;
 use Nahid\Linkify\Linkify;
 use libphonenumber\PhoneNumberFormat;
@@ -446,5 +447,24 @@ class Support
         $x_display = $x_array[0] . ((int) $x_array[1][0] !== 0 ? '.' . $x_array[1][0] : '');
         $x_display .= $x_parts[$x_count_parts - 1];
         return $x_display;
+    }
+
+    /**
+     * [urlWithParams description]
+     * @param  [type] $path   [description]
+     * @param  array  $qs     [description]
+     * @param  [type] $secure [description]
+     * @return [type]         [description]
+     */
+    public function urlWithParams($path = null, $qs = [], $secure = null)
+    {
+        $url = app('url')->to($path, $secure);
+        if (count($qs)){
+            foreach($qs as $key => $value){
+                $qs[$key] = sprintf('%s=%s',$key, urlencode($value));
+            }
+            $url = sprintf('%s?%s', $url, implode('&', $qs));
+        }
+        return $url;
     }
 }

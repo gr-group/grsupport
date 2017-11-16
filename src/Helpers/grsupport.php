@@ -140,3 +140,10 @@ if (!function_exists('summary_numbers')) {
         return Support::summaryNumbers($number);
     }
 }
+
+if (!function_exists('urlq')) {
+    function urlq($path = null, $qs = [], $secure = null)
+    {
+        return Support::urlWithParams($path, $qs, $secure);
+    }
+}
