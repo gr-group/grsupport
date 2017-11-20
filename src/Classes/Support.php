@@ -164,15 +164,15 @@ class Support
     /**
      * Edit part of the contents of a file
      * @param  string $file
+     * @param  string $search
      * @param  string $replace
-     * @param  string $subject
      * @return void
      */
-    public function fileEdit($file, $replace, $subject)
+    public function fileEdit($file, $search, $replace)
     {
         file_put_contents($file, str_replace(
-            "$replace",
-            "$subject",
+            $search,
+            $replace,
             file_get_contents($file)
         ));
     }
