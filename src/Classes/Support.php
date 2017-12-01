@@ -467,4 +467,24 @@ class Support
         }
         return $url;
     }
+
+    /**
+     * Convert cents to Decimal
+     * @param  integer $value
+     * @return float
+     */
+    public function centsToDecimal($value)
+    {
+        return number_format(bcdiv($value, 100, 2), 2, '.', '');
+    }
+
+    /**
+     * Convert decimal to Cents
+     * @param  float $value
+     * @return integer
+     */
+    public function decimalToCents($value)
+    {
+        return (int) bcmul($value, 100);
+    }
 }

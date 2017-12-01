@@ -147,3 +147,19 @@ if (!function_exists('urlq')) {
         return Support::urlWithParams($path, $qs, $secure);
     }
 }
+
+
+if (!function_exists('cents_to_decimal')) {
+    function cents_to_decimal($value)
+    {
+        return Support::centsToDecimal($value);
+    }
+}
+
+
+if (!function_exists('decimal_to_cents')) {
+    function decimal_to_cents($value)
+    {
+        return Support::decimalToCents($value);
+    }
+}
