@@ -245,7 +245,7 @@ class Support
      */
     public function removeLines($str)
     {
-        return preg_replace( "/\r|\n/", "", $str )
+        return preg_replace( "/\r|\n/", "", $str );
     }
 
     /**
