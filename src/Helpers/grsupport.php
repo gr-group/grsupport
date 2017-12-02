@@ -99,6 +99,13 @@ if (!function_exists('limit_lines')) {
     }
 }
 
+if (!function_exists('remove_lines')) {
+    function remove_lines($str)
+    {
+        return Support::removeLines($str);
+    }
+}
+
 if (!function_exists('url_parser')) {
     function url_parser($str, $rule)
     {

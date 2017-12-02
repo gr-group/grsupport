@@ -224,7 +224,7 @@ class Support
     }
 
     /**
-     * Limits the amount of line breaks in a textarea
+     * Limits the amount of line breaks in a string
      * @param  string  $str
      * @param  integer $lines Number of lines to be limited
      * @return string
@@ -236,6 +236,16 @@ class Support
             $line .= "\n";
         }
         return preg_replace("/[\r\n]+/", "$line", $str);
+    }
+
+    /**
+     * Remove line breaks in a string
+     * @param  string  $str
+     * @return string
+     */
+    public function removeLines($str)
+    {
+        return preg_replace( "/\r|\n/", "", $str )
     }
 
     /**
