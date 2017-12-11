@@ -38,7 +38,7 @@ class Support
 
     /**
      * Profanity Blocker
-     * @param 	string 	$str
+     * @param   string  $str
      * @return string
      */
     public function profanityBlocker($str)
@@ -48,7 +48,7 @@ class Support
 
     /**
      * Get auth request by guard
-     * @param 	string 	$guard 	Web / Api
+     * @param   string  $guard  Web / Api
      * @return Illuminate\Database\Eloquent\Model
      */
     public function authRequest($guard = null)
@@ -194,10 +194,10 @@ class Support
 
     /**
      * Interval between two hours
-     * @param  string  $start  	 01:00:00
-     * @param  string  $end    	 23:00:00
+     * @param  string  $start    01:00:00
+     * @param  string  $end      23:00:00
      * @param  integer $interval Interval in hours
-     * @param  boolean $select 	 For use in select of a form or array only
+     * @param  boolean $select   For use in select of a form or array only
      * @return array
      */
     public function rangeHours($start, $end, $interval = 1, $select = true)
@@ -496,5 +496,63 @@ class Support
     public function decimalToCents($value)
     {
         return (int) bcmul($value, 100);
+    }
+
+    /**
+     * Get all routes name
+     * @param  string  $contains Search for a specific word
+     * @param  boolean $exact    Exact search by word or not
+     * @return array
+     */
+    public function getRoutesName($contains = null, $exact = true)
+    {
+        $routeCollection = \Route::getRoutes();
+
+        $routes = collect($routeCollection)->map(function($item){
+            return $item->getName();
+        })->filter(function($item){
+            return !is_null($item);
+        })->values();
+
+        if($contains){
+            return $routes->contains(function($item, $key) use($contains,$exact) {
+                return $exact ? $contains == $item : str_contains($item, $contains);
+            });
+        }
+
+        return $routes;
+    }
+
+    /**
+     * Get all routes prefix/address
+     * @param  boolean $firstBlock All routes or all returning only the first block of the url
+     * @param  string  $contains Search for a specific word
+     * @param  boolean $exact    Exact search by word or not
+     * @return array
+     */
+    public function getRoutesAddress($firstBlock = false, $contains = null, $exact = true)
+    {
+        $routeCollection = \Route::getRoutes();
+
+        $routes = collect($routeCollection)->map(function($item){
+            return $item->getPrefix();
+        })->filter(function($item){
+            return !is_null($item);
+        })->values();
+
+        if($firstBlock){
+            $routes = $routes->transform(function($item){
+                $b = starts_with($item, '/') ? substr($item, 1) : $item;
+                return explode('/', $b)[0];
+            });
+        }
+
+        if($contains){
+            return $routes->contains(function($item, $key) use($contains,$exact) {
+                return $exact ? $contains == $item : str_contains($item, $contains);
+            });
+        }
+
+        return $routes->unique()->all();
     }
 }

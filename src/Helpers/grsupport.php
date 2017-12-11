@@ -170,3 +170,18 @@ if (!function_exists('decimal_to_cents')) {
         return Support::decimalToCents($value);
     }
 }
+
+
+if (!function_exists('rname_contains')) {
+    function rname_contains($value, $exact = true)
+    {
+        return Support::getRoutesName($value, $exact);
+    }
+}
+
+if (!function_exists('raddr_contains')) {
+    function raddr_contains($value, $exact = true, $firstBlock = true)
+    {
+        return Support::getRoutesAddress($firstBlock, $value, $exact);
+    }
+}
