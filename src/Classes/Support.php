@@ -555,4 +555,23 @@ class Support
 
         return $routes->unique()->all();
     }
+
+    /**
+     * Get all keys of routes
+     * @return array
+     */
+    public function getAllKeysRoutes()
+    {
+        $routeCollection = \Route::getRoutes();
+
+        $routes = collect($routeCollection)->map(function($item){
+            return explode('/', $item->getPrefix());
+        })->values()->collapse()->filter(function($item, $key){
+            return $item !== '';
+        })->groupBy(function($item){
+            return $item;
+        })->keys()->all();
+
+        return $routes;
+    }
 }
